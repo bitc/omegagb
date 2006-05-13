@@ -2,7 +2,7 @@
 
 module Main where
 
-import GuiTest02
+import AsciiTest02
 
 main = test02
 
