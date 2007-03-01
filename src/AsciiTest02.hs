@@ -1,4 +1,20 @@
--- Copyright 2006 mutantlemon.com
+-- OmegaGB Copyright 2007 Bit Connor
+-- This program is distributed under the terms of the GNU General Public License
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  AsciiTest02
+-- Copyright   :  (c) Bit Connor 2007 <bit@mutantlemon.com>
+-- License     :  GPL
+-- Maintainer  :  bit@mutantlemon.com
+-- Stability   :  in-progress
+--
+-- OmegaGB
+-- Game Boy Emulator
+--
+-- This module executes a ROM and does some ascii art output. To use this,
+-- run it in a terminal with a really tiny font.
+--
+-----------------------------------------------------------------------------
 
 module AsciiTest02 where
 import Prerequisites
@@ -38,5 +54,5 @@ test02 = do
   let printRows :: Array Int ScanLine -> IO ()
       printRows d = clear >> mapM_ ( \y -> printRow (d!y) ) [0..138]
 
-  replicateM_ 500 (updateMachineDisplayFrameIO machineState)-- >> printRows (msDisplay machineState))
+  replicateM_ 5000 ((updateMachineDisplayFrameIO machineState) >> printRows (msDisplay machineState))
 

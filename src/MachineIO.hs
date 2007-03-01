@@ -1,4 +1,21 @@
--- Copyright 2006 mutantlemon.com
+-- OmegaGB Copyright 2007 Bit Connor
+-- This program is distributed under the terms of the GNU General Public License
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  MachineIO
+-- Copyright   :  (c) Bit Connor 2007 <bit@mutantlemon.com>
+-- License     :  GPL
+-- Maintainer  :  bit@mutantlemon.com
+-- Stability   :  in-progress
+--
+-- OmegaGB
+-- Game Boy Emulator
+--
+-- This module is an alternative implementation of Machine, using the IO
+-- monad and mutable variables in an attempt to get better performance.
+-- I'm not sure if it works.
+--
+-----------------------------------------------------------------------------
 
 module MachineIO where
 

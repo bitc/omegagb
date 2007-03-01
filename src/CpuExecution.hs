@@ -1,4 +1,21 @@
--- Copyright 2006 mutantlemon.com
+-- OmegaGB Copyright 2007 Bit Connor
+-- This program is distributed under the terms of the GNU General Public License
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  CpuExecution
+-- Copyright   :  (c) Bit Connor 2007 <bit@mutantlemon.com>
+-- License     :  GPL
+-- Maintainer  :  bit@mutantlemon.com
+-- Stability   :  in-progress
+--
+-- OmegaGB
+-- Game Boy Emulator
+--
+-- This module defines an abstract syntax tree CPU execution monad
+--
+-----------------------------------------------------------------------------
+
+{-# OPTIONS -fglasgow-exts #-}
 
 module CpuExecution where
 

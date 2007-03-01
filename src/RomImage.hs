@@ -1,4 +1,20 @@
--- Copyright 2006 mutantlemon.com
+-- OmegaGB Copyright 2007 Bit Connor
+-- This program is distributed under the terms of the GNU General Public License
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  RomImage
+-- Copyright   :  (c) Bit Connor 2007 <bit@mutantlemon.com>
+-- License     :  GPL
+-- Maintainer  :  bit@mutantlemon.com
+-- Stability   :  in-progress
+--
+-- OmegaGB
+-- Game Boy Emulator
+--
+-- This module defines the type for a ROM image: the contents of a dumped
+-- Game Boy game cartdrige.
+--
+-----------------------------------------------------------------------------
 
 module RomImage where
 

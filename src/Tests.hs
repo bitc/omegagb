@@ -1,4 +1,20 @@
--- Copyright 2006 mutantlemon.com
+-- OmegaGB Copyright 2007 Bit Connor
+-- This program is distributed under the terms of the GNU General Public License
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  Tests
+-- Copyright   :  (c) Bit Connor 2007 <bit@mutantlemon.com>
+-- License     :  GPL
+-- Maintainer  :  bit@mutantlemon.com
+-- Stability   :  in-progress
+--
+-- OmegaGB
+-- Game Boy Emulator
+--
+-- Some really basic tests. From the early life of the project.
+-- Not really useful anymore
+--
+-----------------------------------------------------------------------------
 
 module Tests where
 
@@ -96,5 +112,4 @@ romExecutionTest 1 = do
   mapM_ (\s -> putStr s >> wait) dis
 
   where wait = putStrLn "" --getChar
-
 

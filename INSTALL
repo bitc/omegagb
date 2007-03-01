@@ -1,0 +1,10 @@
+Please see README for more information.
+
+For now just run:
+
+  cd src
+  ghc -O --make Main
+
+
+Make sure to compile with optimization, otherwise it runs horribly slow!
+

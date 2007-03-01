@@ -1,4 +1,23 @@
--- Copyright 2006 mutantlemon.com
+-- OmegaGB Copyright 2007 Bit Connor
+-- This program is distributed under the terms of the GNU General Public License
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  Machine
+-- Copyright   :  (c) Bit Connor 2007 <bit@mutantlemon.com>
+-- License     :  GPL
+-- Maintainer  :  bit@mutantlemon.com
+-- Stability   :  in-progress
+--
+-- OmegaGB
+-- Game Boy Emulator
+--
+-- This module does emulation of a lot of the Game Boy's hardware, including
+-- interrupts and graphics rendering. It's still incomplete.
+-- 
+-- The complete state of all of the GameBoy is represented as the tuple:
+-- ((RegisterStates, Memory), IrqStates)
+--
+-----------------------------------------------------------------------------
 
 module Machine where
 --import Prerequisites
@@ -420,7 +439,7 @@ updateMachine (state@(regS, memS), irqS) =
 initialMachineState romImage =
   ((initialRegisterStates, initMemory romImage), initialIrqStates)
 
-instance Show JoypadKeyStates
+--instance Show JoypadKeyStates
 
 updateMachineDisplayFrame :: JoypadKeyStates ->
                              ((RegisterStates, Memory), IrqStates) ->

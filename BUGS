@@ -1,6 +1,0 @@
-BUG: SWAP instruction increments PC by one
-CORRECT BEHAVIOUR: SWAP instruction should incremenet PC by two
-
-BUG: RST instruction pushes it's jump address onto the stack
-CORRECT BEHAVIOUR: RST instruction should push the PC value onto the stack
-

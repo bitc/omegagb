@@ -1,0 +1,45 @@
+OmegaGB
+Nintendo Game Boy Emulator
+By Bit Connor <bit@mutantlemon.com>
+
+=== Requirements:
+
+- ghc 6.6
+- gtk2hs (with glade support) 0.9.11
+These are the versions I am using. Other versions should probably also work
+fine.
+If you don't have gtk2hs then you can still run the Ascii tests, which do
+ascii art rendering to your terminal.
+
+=== About
+
+This is still in a very rough state. The priority right now is to optimize
+the code so that it will run in real time. Right now it runs at about
+10% of real time speed on my workstation.
+
+There are still lots of pieces missing for full emulation:
+
+- CPU emulation is almost complete, but it may be buggy
+- The memory bus still needs a bit of work. Currently there is no support
+  for any of the GB memory banks, so only 32K ROMS have a chance at running.
+  Also missing are a bunch of the various GB registers.
+- Only a few of the GB interrupts have been implemented.
+- The only part of the graphics hardware that is emulated so far is
+  rendering of the background map.
+- No sound emulation.
+- No link cable emulation.
+
+What all this means is that OmegaGB is capable of showing the title screens
+of a few games, but not much more.
+
+The goal is to get OmegaGB to a state where it can properly emulate most
+games. If you don't have a way to dump your game cartdriges to a rom file
+(and don't want to download), then you can get some free (legal) roms at
+this website:
+
+http://www.zophar.net/roms.phtml?op=show&type=gb
+
+I've found that SPACE.GB from the "Diagnostics Rom", by an unknown author
+works well. Also, the title screen shows for "Sokoban", by Obsession
+Development.
+

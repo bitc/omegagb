@@ -1,10 +1,25 @@
--- Copyright 2006 mutantlemon.com
+-- OmegaGB Copyright 2007 Bit Connor
+-- This program is distributed under the terms of the GNU General Public License
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  AsciiTest01
+-- Copyright   :  (c) Bit Connor 2007 <bit@mutantlemon.com>
+-- License     :  GPL
+-- Maintainer  :  bit@mutantlemon.com
+-- Stability   :  in-progress
+--
+-- OmegaGB
+-- Game Boy Emulator
+--
+-- This module executes a ROM and does some ascii art output
+--
+-----------------------------------------------------------------------------
 
 module AsciiTest01 where
 import Prerequisites
 
 import Data.Char
-import Data.Array.IArray hiding ((!), (//))
+import Data.Array.IArray --hiding ((!), (//))
 
 import RomImage
 import Machine

@@ -1,8 +1,23 @@
--- Copyright 2006 mutantlemon.com
+-- OmegaGB Copyright 2007 Bit Connor
+-- This program is distributed under the terms of the GNU General Public License
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  GuiDrawUtil
+-- Copyright   :  (c) Bit Connor 2007 <bit@mutantlemon.com>
+-- License     :  GPL
+-- Maintainer  :  bit@mutantlemon.com
+-- Stability   :  in-progress
+--
+-- OmegaGB
+-- Game Boy Emulator
+--
+-- Code for updating a gtk+ canvas 
+--
+-----------------------------------------------------------------------------
 
 module GuiDrawUtil where
 
--- Code taken from gtk2hs fastdraw demo
+-- Code shamelessly taken from gtk2hs fastdraw demo
 
 import Graphics.UI.Gtk
 
@@ -28,5 +43,4 @@ doFromTo from to action =
              | otherwise = do action n
                               loop (n+1)
    in loop from
-
 

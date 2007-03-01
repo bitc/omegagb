@@ -1,4 +1,20 @@
--- Copyright 2006 mutantlemon.com
+-- OmegaGB Copyright 2007 Bit Connor
+-- This program is distributed under the terms of the GNU General Public License
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  GuiTest02
+-- Copyright   :  (c) Bit Connor 2007 <bit@mutantlemon.com>
+-- License     :  GPL
+-- Maintainer  :  bit@mutantlemon.com
+-- Stability   :  in-progress
+--
+-- OmegaGB
+-- Game Boy Emulator
+--
+-- This module runs a gtk+ application that emulates a ROM, including a
+-- display and push buttons for joypad control.
+--
+-----------------------------------------------------------------------------
 
 module GuiTest02 where
 
@@ -130,10 +146,7 @@ test02 = do
   menu_about `onActivateLeaf` do
     dia <- aboutDialogNew
     aboutDialogSetName dia "OmegaGB test01"
-    aboutDialogSetCopyright dia "Copyright 2006 bit@mutantlemon.com"
     aboutDialogSetComments dia "Game Boy Emulator Development Test"
-    aboutDialogSetWebsite dia "http://www.mutantlemon.com/omegagb"
-    aboutDialogSetAuthors dia ["<bit@mutantlemon.com>"]
     dialogRun dia
     widgetDestroy dia
 

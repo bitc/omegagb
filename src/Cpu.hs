@@ -1,4 +1,22 @@
--- Copyright 2006 mutantlemon.com
+-- OmegaGB Copyright 2007 Bit Connor
+-- This program is distributed under the terms of the GNU General Public License
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  Cpu
+-- Copyright   :  (c) Bit Connor 2007 <bit@mutantlemon.com>
+-- License     :  GPL
+-- Maintainer  :  bit@mutantlemon.com
+-- Stability   :  in-progress
+--
+-- OmegaGB
+-- Game Boy Emulator
+--
+-- This module does emulation of the Game Boy's Z80 like CPU.
+-- A few instructions still need to be implemented
+--
+-----------------------------------------------------------------------------
+
+{-# OPTIONS -fglasgow-exts #-}
 
 module Cpu where
 
@@ -564,14 +582,14 @@ executeInstruction ins = case ins of
     let v' = swapNibbles v
     writeRegister (mRegister r) v'
     writeFlags (Just (v' == 0)) (Just False) (Just False) (Just False)
-    incPC1
+    incPC2
   SWAPHL -> do
     a <- readRegister2 (mRegister2 HL)
     v <- readMemory a
     let v' = swapNibbles v
     writeMemory a v'
     writeFlags (Just (v' == 0)) (Just False) (Just False) (Just False)
-    incPC1
+    incPC2
   DAA -> error "DAA | NOT IMPLEMENTED"
   CPL -> do
     v <- readRegister (mRegister A)
@@ -723,11 +741,13 @@ executeInstruction ins = case ins of
     if j then executeInstruction (CALL Nothing nn) else incPC3
   RST ra -> let ja = nFromRestartAddress ra 
                 (v, v') = splitWord16 ja in do
+    pc <- readRegister2 M_PC
+    let (hi, lo) = splitWord16 (pc+2)
     a <- readRegister2 (mRegister2 SP)
     let a' = a - 1
     let a'' = a - 2
-    writeMemory a' v
-    writeMemory a'' v'
+    writeMemory a' hi
+    writeMemory a'' lo
     writeRegister2 (mRegister2 SP) a''
     writeRegister2 M_PC ja
   RET Nothing -> do
