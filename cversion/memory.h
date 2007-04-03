@@ -1,6 +1,8 @@
 #ifndef MEMORY_H__
 #define MEMORY_H__
 
+#include <assert.h>
+
 #include "util.h"
 #include "rom_image.h"
 
@@ -46,9 +48,16 @@ static inline void write_memory(Memory* memory, u16 address, u8 value)
 		{
 			memory->ram[0xFF04] = 0x00;
 		}
-		else if(address == 0xFF07)
+		else if(address == 0xFF07) /* TAC Register */
 		{
-			assert(0);
+			if(value & (1 << 2))
+			{
+				assert(0);
+			}
+			else
+			{
+				memory->ram[0xFF07] = value;
+			}
 		}
 		else if(address == 0xFF44) /* LY Register */
 		{

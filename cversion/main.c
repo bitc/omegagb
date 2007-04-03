@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include <sys/time.h>
+
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -120,6 +122,13 @@ gboolean step(gpointer data)
 	update_machine_vblank(d->machine, d->breakpoint_table);
 
 	refresh_display(d, d->machine);
+
+	struct timeval tv;
+	gettimeofday(&tv, 0);
+
+	long long s = tv.tv_sec;
+	long long u = tv.tv_usec;
+	printf("%lld %lld\n", s, u);
 
 	return TRUE;
 }
