@@ -389,7 +389,6 @@ static inline void AND(Cpu* cpu, Memory* memory, enum Register r)
 
 static inline void ANDHL(Cpu* cpu, Memory* memory)
 {
-	assert(0);
 	u16 a = read_register_pair(cpu, HL);
 	u8 v = cpu->a;
 	u8 vp = read_memory(memory, a);
@@ -433,7 +432,6 @@ static inline void OR(Cpu* cpu, Memory* memory, enum Register r)
 
 static inline void ORHL(Cpu* cpu, Memory* memory)
 {
-	assert(0);
 	u16 a = read_register_pair(cpu, HL);
 	u8 v = cpu->a;
 	u8 vp = read_memory(memory, a);
@@ -821,8 +819,10 @@ static inline void CBSLAHL(Cpu* cpu, Memory* memory)
 
 static inline void CBSRA(Cpu* cpu, Memory* memory, enum Register r)
 {
-	fprintf(stderr, "[NOT IMPLEMENTED] SRA r\n");
-	assert(0);
+	u8 v = read_register(cpu, r);
+	u8 vp = ((v >> 1) & 0x7F) | (v & 0x80);
+	write_register(cpu, r, vp);
+	write_flags(cpu, vp == 0, 0, 0, v & 0x01);
 }
 
 static inline void CBSRAHL(Cpu* cpu, Memory* memory)
