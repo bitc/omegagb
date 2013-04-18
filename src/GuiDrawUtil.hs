@@ -20,9 +20,11 @@ module GuiDrawUtil where
 -- Code shamelessly taken from gtk2hs fastdraw demo
 
 import Graphics.UI.Gtk
+import Graphics.UI.Gtk.Gdk.GC
+import Graphics.UI.Gtk.Gdk.Events as E
 
 updateCanvas :: DrawingArea -> Pixbuf -> Event -> IO Bool
-updateCanvas canvas pb Expose { eventRegion = region } = do
+updateCanvas canvas pb Expose { E.eventRegion = region } = do
   win <- drawingAreaGetDrawWindow canvas
   gc <- gcNew win
   width  <- pixbufGetWidth pb

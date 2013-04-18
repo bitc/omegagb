@@ -15,7 +15,7 @@
 --
 -----------------------------------------------------------------------------
 
-{-# OPTIONS -fglasgow-exts #-}
+{-# LANGUAGE GADTs #-}
 
 module CpuExecution where
 

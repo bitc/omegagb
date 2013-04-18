@@ -19,6 +19,8 @@
 --
 -----------------------------------------------------------------------------
 
+{-# LANGUAGE GADTs #-}
+
 module Machine where
 --import Prerequisites
 

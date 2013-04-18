@@ -19,7 +19,7 @@
 module GuiTest02 where
 
 import qualified Control.Exception as C
-import Maybe(fromJust)
+import Data.Maybe(fromJust)
 import Data.IORef
 import Data.Word
 import Data.Array.IArray
@@ -43,7 +43,7 @@ test02 = do
 
   windowXml <- C.catch
                ((xmlNew gladeFile) >>= return . fromJust)
-               (\e -> putStrLn ("Error Loading " ++ gladeFile) >> C.throwIO e)
+               (\e -> putStrLn ("Error Loading " ++ gladeFile) >> C.throwIO (e :: C.IOException))
 
   let bindWidget x y = xmlGetWidget windowXml x y
   main_window   <- bindWidget castToWindow       "main_window"

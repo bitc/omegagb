@@ -17,6 +17,8 @@
 --
 -----------------------------------------------------------------------------
 
+{-# LANGUAGE GADTs #-}
+
 module MachineIO where
 
 import Data.Array.MArray

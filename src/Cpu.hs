@@ -16,7 +16,7 @@
 --
 -----------------------------------------------------------------------------
 
-{-# OPTIONS -fglasgow-exts #-}
+{-# LANGUAGE ExistentialQuantification #-}
 
 module Cpu where
 
