@@ -33,7 +33,7 @@ import RomImage
 import GuiDrawUtil
 import Machine
 import Joypad
-import MachineIO
+--import MachineIO
 
 gladeFile = "guis/test03/test03.glade"
 

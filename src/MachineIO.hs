@@ -19,7 +19,7 @@
 
 {-# LANGUAGE GADTs #-}
 
-module MachineIO where
+module MachineIO (msDisplay, initMachineStateIO, updateMachineDisplayFrameIO) where
 
 import Data.Array.MArray
 import Data.Bits
