@@ -23,8 +23,8 @@ module Main where
 --import AsciiTest01 -- test01
 --import AsciiTest02 -- test02
 --import GuiTests -- test 01
-import GuiTest02 -- test02
+--import GuiTest02 -- test02
 --import GuiTest03 -- test03
+import SpeedTest01 -- test01
 
-main = test02
-
+main = test01
