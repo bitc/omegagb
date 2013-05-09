@@ -212,8 +212,8 @@ irqUpdate cycles ime = execState $ do
                (hiPC, loPC) = splitWord16 oldPC
                oldSP = getReg2State reg M_SP
            (flip const) (showHex2 oldSP) (modify $ transformMem ( \m -> writeMem (writeMem m (oldSP-1) hiPC) (oldSP-2) loPC ))
-           modify $ transformReg (\r -> setReg2State r M_SP (oldSP-2))
-           modify $ transformReg (\r -> setReg2State r M_PC jumpAddr)
+           modify $ transformReg (\r -> r `seq` setReg2State r M_SP $! (oldSP-2))
+           modify $ transformReg (\r -> r `seq` setReg2State r M_PC $! jumpAddr)
            return ())
 
   where getLowBit :: Word8 -> Int
