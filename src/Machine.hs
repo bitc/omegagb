@@ -54,20 +54,22 @@ import Debug.Trace
 
 --scanlinePeriod = vblankPeriod / 153
 
-type RegisterStates = (Word8,  -- A
-                       Word8,  -- B
-                       Word8,  -- C
-                       Word8,  -- D
-                       Word8,  -- E
-                       Word8,  -- F
-                       Word8,  -- H
-                       Word8,  -- L
-                       Word16, -- PC
-                       Word16) -- SP
+-- Strict field used to contain states
+data RegisterStates = RegisterStates
+       {-# UNPACK #-} !Word8  -- A
+       {-# UNPACK #-} !Word8  -- B
+       {-# UNPACK #-} !Word8  -- C
+       {-# UNPACK #-} !Word8  -- D
+       {-# UNPACK #-} !Word8  -- E
+       {-# UNPACK #-} !Word8  -- F
+       {-# UNPACK #-} !Word8  -- H
+       {-# UNPACK #-} !Word8  -- L
+       {-# UNPACK #-} !Word16 -- PC
+       {-# UNPACK #-} !Word16 -- SP
 
 getRegState :: RegisterStates -> M_Register -> Word8
 getRegState rs r =
-  let (a, b, c, d, e, f, h, l, _, _) = rs in
+  let RegisterStates a b c d e f h l _ _ = rs in
   case r of
     M_A -> a
     M_B -> b
@@ -80,20 +82,20 @@ getRegState rs r =
 
 setRegState :: RegisterStates -> M_Register -> Word8 -> RegisterStates
 setRegState rs r n =
-  let (a, b, c, d, e, f, h, l, pc, sp) = rs in
+  let RegisterStates a b c d e f h l pc sp = rs in
   case r of
-    M_A -> (n, b, c, d, e, f, h, l, pc, sp)
-    M_B -> (a, n, c, d, e, f, h, l, pc, sp)
-    M_C -> (a, b, n, d, e, f, h, l, pc, sp)
-    M_D -> (a, b, c, n, e, f, h, l, pc, sp)
-    M_E -> (a, b, c, d, n, f, h, l, pc, sp)
-    M_F -> (a, b, c, d, e, n.&.0xF0, h, l, pc, sp)
-    M_H -> (a, b, c, d, e, f, n, l, pc, sp)
-    M_L -> (a, b, c, d, e, f, h, n, pc, sp)
+    M_A -> RegisterStates n b c d e f h l pc sp
+    M_B -> RegisterStates a n c d e f h l pc sp
+    M_C -> RegisterStates a b n d e f h l pc sp
+    M_D -> RegisterStates a b c n e f h l pc sp
+    M_E -> RegisterStates a b c d n f h l pc sp
+    M_F -> RegisterStates a b c d e (n.&.0xF0) h l pc sp
+    M_H -> RegisterStates a b c d e f n l pc sp
+    M_L -> RegisterStates a b c d e f h n pc sp
 
 getReg2State :: RegisterStates -> M_Register2 -> Word16
 getReg2State rs r2 =
-  let (a, b, c, d, e, f, h, l, pc, sp) = rs in
+  let RegisterStates a b c d e f h l pc sp = rs in
   case r2 of
     M_AF -> joinWord16 a f
     M_BC -> joinWord16 b c
@@ -104,15 +106,15 @@ getReg2State rs r2 =
 
 setReg2State :: RegisterStates -> M_Register2 -> Word16 -> RegisterStates
 setReg2State rs r2 nn =
-  let (a, b, c, d, e, f, h, l, pc, sp) = rs
+  let RegisterStates a b c d e f h l pc sp = rs
       (hi, lo) = splitWord16 nn in
   case r2 of
-    M_AF -> (hi, b, c, d, e, lo.&.0xF0, h, l, pc, sp)
-    M_BC -> (a, hi, lo, d, e, f, h, l, pc, sp)
-    M_DE -> (a, b, c, hi, lo, f, h, l, pc, sp)
-    M_HL -> (a, b, c, d, e, f, hi, lo, pc, sp)
-    M_PC -> (a, b, c, d, e, f, h, l, nn, sp)
-    M_SP -> (a, b, c, d, e, f, h, l, pc, nn)
+    M_AF -> RegisterStates hi b c d e (lo.&.0xF0) h l pc sp
+    M_BC -> RegisterStates a hi lo d e f h l pc sp
+    M_DE -> RegisterStates a b c hi lo f h l pc sp
+    M_HL -> RegisterStates a b c d e f hi lo pc sp
+    M_PC -> RegisterStates a b c d e f h l nn sp
+    M_SP -> RegisterStates a b c d e f h l pc nn
 
 initialA_GB, initialA_GBP, initialA_GBC :: Word8
 initialA_GB  = 0x01
@@ -120,17 +122,17 @@ initialA_GBP = 0xFF
 initialA_GBC = 0x11
 
 initialRegisterStates :: RegisterStates
-initialRegisterStates =
-  (initialA_GB, -- A
-  0x00,         -- B
-  0x13,         -- C
-  0x00,         -- D
-  0xD8,         -- E
-  0xB0,         -- F
-  0x01,         -- H
-  0x4D,         -- L
-  0x0100,       -- PC
-  0xFFFE)       -- SP
+initialRegisterStates = RegisterStates
+  initialA_GB  -- A
+  0x00         -- B
+  0x13         -- C
+  0x00         -- D
+  0xD8         -- E
+  0xB0         -- F
+  0x01         -- H
+  0x4D         -- L
+  0x0100       -- PC
+  0xFFFE       -- SP
 
 vBlankPeriod = 70224
 hBlankPeriod = 456
@@ -212,8 +214,8 @@ irqUpdate cycles ime = execState $ do
                (hiPC, loPC) = splitWord16 oldPC
                oldSP = getReg2State reg M_SP
            (flip const) (showHex2 oldSP) (modify $ transformMem ( \m -> writeMem (writeMem m (oldSP-1) hiPC) (oldSP-2) loPC ))
-           modify $ transformReg (\r -> r `seq` setReg2State r M_SP $! (oldSP-2))
-           modify $ transformReg (\r -> r `seq` setReg2State r M_PC $! jumpAddr)
+           modify $ transformReg (\r -> setReg2State r M_SP $! (oldSP-2))
+           modify $ transformReg (\r -> setReg2State r M_PC $! jumpAddr)
            return ())
 
   where getLowBit :: Word8 -> Int
