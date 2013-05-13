@@ -15,6 +15,8 @@
 --
 -----------------------------------------------------------------------------
 
+{-# LANGUAGE BangPatterns #-}
+
 module WordUtil where
 
 import Data.Char

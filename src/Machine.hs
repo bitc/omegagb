@@ -140,15 +140,15 @@ hBlankPeriod = 456
 divPeriod = 256
 
 data IrqStates = IrqStates {
-  irqStateIME :: Bool,               -- Interrupt Master Enable
-  irqStateVBlankCounter :: Int,      -- CPU cycles until next V-Blank (mode1)
-  irqStateHBlankCounter :: Int,      -- CPU cycles until next H-Blank (mode2)
-  irqStateHBlankMode3Counter :: Int, -- CPU cycles until next H-Blank mode3 cycle
-  irqStateHBlankMode0Counter :: Int, -- CPU cycles until next H-Blank mode0 cycle
-  irqStateCurrentScanline :: Int,    -- Current scanline, 0-153
-  irqStateDisplay :: Display,        -- LCD Display pixels
-  irqStateVBlankNow :: Bool,         -- VBlank happened right now at the current instruction
-  irqStateDIVCounter :: Int          -- DIV register
+  irqStateIME :: !Bool,               -- Interrupt Master Enable
+  irqStateVBlankCounter :: !Int,      -- CPU cycles until next V-Blank (mode1)
+  irqStateHBlankCounter :: !Int,      -- CPU cycles until next H-Blank (mode2)
+  irqStateHBlankMode3Counter :: !Int, -- CPU cycles until next H-Blank mode3 cycle
+  irqStateHBlankMode0Counter :: !Int, -- CPU cycles until next H-Blank mode0 cycle
+  irqStateCurrentScanline :: !Int,    -- Current scanline, 0-153
+  irqStateDisplay :: !Display,        -- LCD Display pixels
+  irqStateVBlankNow :: !Bool,         -- VBlank happened right now at the current instruction
+  irqStateDIVCounter :: !Int          -- DIV register
 }
 
 initialIrqStates = IrqStates {

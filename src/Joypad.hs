@@ -18,18 +18,18 @@
 
 module Joypad where
 
-type JoypadKeyStates = (Bool, Bool, Bool, Bool, Bool, Bool, Bool, Bool)
+data JoypadKeyStates = JoypadKeyStates !Bool !Bool !Bool !Bool !Bool !Bool !Bool !Bool
 
 --initJoypadKeyStates :: Bool -> Bool -> Bool -> Bool -> Bool -> Bool -> Bool -> Bool -> JoypadKeyStates
 initJoypadKeyStates right left up down a b select start =
-  (right, left, up, down, a, b, select, start)
+  JoypadKeyStates right left up down a b select start
 
-getJoypadKeyStateRight jp = let (v, _, _, _, _, _, _, _) = jp in v
-getJoypadKeyStateLeft jp = let (_, v, _, _, _, _, _, _) = jp in v
-getJoypadKeyStateUp jp = let (_, _, v, _, _, _, _, _) = jp in v
-getJoypadKeyStateDown jp = let (_, _, _, v, _, _, _, _) = jp in v
-getJoypadKeyStateA jp = let (_, _, _, _, v, _, _, _) = jp in v
-getJoypadKeyStateB jp = let (_, _, _, _, _, v, _, _) = jp in v
-getJoypadKeyStateSelect jp = let (_, _, _, _, _, _, v, _) = jp in v
-getJoypadKeyStateStart jp = let (_, _, _, _, _, _, _, v) = jp in v
+getJoypadKeyStateRight jp = let JoypadKeyStates v _ _ _ _ _ _ _ = jp in v
+getJoypadKeyStateLeft jp = let JoypadKeyStates _ v _ _ _ _ _ _ = jp in v
+getJoypadKeyStateUp jp = let JoypadKeyStates _ _ v _ _ _ _ _ = jp in v
+getJoypadKeyStateDown jp = let JoypadKeyStates _ _ _ v _ _ _ _ = jp in v
+getJoypadKeyStateA jp = let JoypadKeyStates _ _ _ _ v _ _ _ = jp in v
+getJoypadKeyStateB jp = let JoypadKeyStates _ _ _ _ _ v _ _ = jp in v
+getJoypadKeyStateSelect jp = let JoypadKeyStates _ _ _ _ _ _ v _ = jp in v
+getJoypadKeyStateStart jp = let JoypadKeyStates _ _ _ _ _ _ _ v = jp in v
 

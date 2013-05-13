@@ -42,14 +42,14 @@ data M_Register2 =
 
 data ExecutionAST result where
   Return :: result -> ExecutionAST result
-  Bind :: (ExecutionAST oldres) -> (oldres -> ExecutionAST result) ->
+  Bind :: !(ExecutionAST oldres) -> !(oldres -> ExecutionAST result) ->
           ExecutionAST result
-  WriteRegister :: M_Register -> Word8 -> ExecutionAST ()
-  ReadRegister :: M_Register -> ExecutionAST Word8
-  WriteRegister2 :: M_Register2 -> Word16 -> ExecutionAST ()
-  ReadRegister2 :: M_Register2 -> ExecutionAST Word16
-  WriteMemory :: Word16 -> Word8 -> ExecutionAST ()
-  ReadMemory :: Word16 -> ExecutionAST Word8
+  WriteRegister :: !M_Register -> !Word8 -> ExecutionAST ()
+  ReadRegister :: !M_Register -> ExecutionAST Word8
+  WriteRegister2 :: !M_Register2 -> !Word16 -> ExecutionAST ()
+  ReadRegister2 :: !M_Register2 -> ExecutionAST Word16
+  WriteMemory :: !Word16 -> !Word8 -> ExecutionAST ()
+  ReadMemory :: !Word16 -> ExecutionAST Word8
 instance Monad ExecutionAST where
   return = Return
   (>>=) = Bind

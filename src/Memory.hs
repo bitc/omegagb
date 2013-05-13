@@ -35,7 +35,7 @@ class MemoryModel a where
 
 data Memory = Memory {
   memRomImage :: RomImage,
-  memRam :: UArray Word16 Word8,
+  memRam :: (UArray Word16 Word8),
   memJoypadKeyStates :: JoypadKeyStates
 }
 
