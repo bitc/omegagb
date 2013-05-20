@@ -4,10 +4,9 @@ By Bit Connor <bit@mutantlemon.com>
 
 === Requirements:
 
-- ghc 6.6
-- gtk2hs (with glade support) 0.9.11
-These are the versions I am using. Other versions should probably also work
-fine.
+- ghc 6.7.3
+- gtk2hs (with glade support) 0.12.4
+The code was updated for ghc 6.7.3. Other versions should probably also work fine.
 If you don't have gtk2hs then you can still run the Ascii tests, which do
 ascii art rendering to your terminal.
 
